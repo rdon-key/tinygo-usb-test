@@ -8,7 +8,7 @@ A minimal reproducer for investigating data loss during USB CDC reception.
 
 This test checks whether USB CDC receive flow control works correctly.
 
-The PC sends 1024 bytes to a Raspberry Pi Pico. After reading the first byte, the Pico sleeps for 5 seconds without reading any additional data. It then resumes reading for up to 3 seconds and checks whether all 1024 bytes were received correctly by comparing the received byte count and SHA-256 hash.
+The PC sends the number of bytes specified by `-size` (default: 1024) to a Raspberry Pi Pico. After reading the first byte, the Pico sleeps for 5 seconds without reading any additional data. It then resumes reading until the 3-second deadline, without knowing the send size or stopping early at 1024 bytes. It incrementally computes SHA-256 over all received data. The PC compares the received byte count and SHA-256 hash with the sent data.
 
 ## How to Run
 
@@ -36,7 +36,16 @@ Linux:
 go -C s1/host run . -port /dev/ttyACM0
 ```
 
-Replace the port name with the actual serial port.
+Replace the port name with the actual serial port. `-size` specifies a positive byte count; the default is 1024. Zero and negative values are rejected.
+
+Examples:
+
+```bash
+go -C s1/host run . -port COM12 -size 512
+go -C s1/host run . -port COM12 -size 513
+go -C s1/host run . -port COM12 -size 1024
+go -C s1/host run . -port COM12 -size 2048
+```
 
 Each execution runs a single test. Reset the Pico before running the test again.
 
@@ -44,12 +53,12 @@ Each execution runs a single test. Reset the Pico before running the test again.
 
 | Result | Condition |
 |---|---|
-| PASS | All 1024 bytes are received and the SHA-256 hash matches |
+| PASS | The received byte count equals the specified size and the SHA-256 hash matches |
 | FAIL | The received byte count or SHA-256 hash does not match |
 | TIMEOUT | Sending or receiving the result does not complete within 10 seconds |
 | ERROR | A communication error occurs or the result format is invalid |
 
-The PC sends 1024 bytes containing the sequence 0–255 repeated four times.
+The PC generates the specified number of bytes with `data[i] = byte(i)` (the sequence 0–255 repeated as needed) and computes SHA-256 over the entire payload.
 
 The Pico returns the received byte count and SHA-256 hash as ASCII text. The byte count is a zero-padded 10-digit decimal number, followed by a 64-character hexadecimal SHA-256 hash.
 

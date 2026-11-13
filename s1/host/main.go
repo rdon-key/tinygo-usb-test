@@ -14,6 +14,7 @@ import (
 
 func main() {
 	port := flag.String("port", "", "serial port: COM12 or /dev/ttyACM0")
+	size := flag.Int("size", 1024, "number of bytes to send (must be positive)")
 	flag.Parse()
 	fmt.Println("S1 - USB CDC RX Data Loss Reproducer")
 	check := func(err error) {
@@ -25,10 +26,13 @@ func main() {
 	if !validPort(*port) || flag.NArg() != 0 {
 		check(fmt.Errorf("specify -port; see -help"))
 	}
+	if *size <= 0 {
+		check(fmt.Errorf("-size must be positive"))
+	}
 	p, err := openPort(*port)
 	check(err)
 	defer p.Close()
-	data := make([]byte, 1024)
+	data := make([]byte, *size)
 	for i := range data {
 		data[i] = byte(i)
 	}
@@ -40,7 +44,7 @@ func main() {
 	defer timer.Stop()
 	_, err = io.Copy(p, bytes.NewReader(data))
 	check(err)
-	fmt.Println("Sent     : 1024 B")
+	fmt.Printf("Sent     : %d B\n", *size)
 	var reply [76]byte
 	_, err = io.ReadFull(p, reply[:])
 	check(err)
@@ -53,7 +57,7 @@ func main() {
 	hash, result := "MISMATCH", "FAIL"
 	if string(reply[11:75]) == expected {
 		hash = "MATCH"
-		if received == 1024 {
+		if received == uint64(*size) {
 			result = "PASS"
 		}
 	}
