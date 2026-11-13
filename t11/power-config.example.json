@@ -1,0 +1,13 @@
+{
+  "hub": "REPLACE_WITH_VERIFIED_EXTERNAL_HUB",
+  "port": 0,
+  "hub_vid": "0000",
+  "hub_pid": "0000",
+  "usb_connection": "REPLACE_WITH_PICO_CONNECTION",
+  "serial": "",
+  "physical_vbus_verified": false,
+  "exclusive_verified": false,
+  "exact_hub_only_verified": false,
+  "verified_at": "",
+  "evidence": "Fill only after actual voltage and exclusive-scope verification with the exact -e command."
+}

@@ -1,0 +1,70 @@
+Batch start: 2026-11-13T00:17:44
+Report: /home/user/cdctest/batch-20261113-001744.log
+
+===== [1/12] t5 tasks -frames 32 -producers 4 -mode raw (attempt 1) =====
+PASS: t5 tasks -frames 32 -producers 4 -mode raw
+
+===== [2/12] t5 tasks -frames 32 -producers 4 -mode serialized (attempt 1) =====
+PASS: t5 tasks -frames 32 -producers 4 -mode serialized
+
+===== [3/12] t5 cores -frames 32 -producers 4 -mode raw (attempt 1) =====
+PASS: t5 cores -frames 32 -producers 4 -mode raw
+
+===== [4/12] t5 cores -frames 32 -producers 4 -mode serialized (attempt 1) =====
+PASS: t5 cores -frames 32 -producers 4 -mode serialized
+
+===== [5/12] t7 tasks (attempt 1) =====
+FAILED: t7 tasks (exit=2)
+LED observation: t7 tasks: 28点灯固定、他消灯
+RESET後にCDC再列挙を確認できませんでした。BOOTSEL復旧を選べます。
+RESET後のCDC再列挙を確認: ('ttyACM0', '82')
+
+===== [6/12] t7 cores (attempt 1) =====
+FAILED: t7 cores (exit=2)
+LED observation: t7 cores: すべて消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '85')
+
+===== [7/12] t8 tasks (attempt 1) =====
+FAILED: t8 tasks (exit=2)
+LED observation: t8 tasks: 28点灯固定、他消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '88')
+
+===== [8/12] t8 cores (attempt 1) =====
+FAILED: t8 cores (exit=2)
+LED observation: t8 cores: 28点灯固定、他消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '91')
+
+===== [9/12] t9 tasks (attempt 1) =====
+FAILED: t9 tasks (exit=2)
+LED observation: t9 tasks: 28点灯固定、他消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '94')
+
+===== [10/12] t9 cores (attempt 1) =====
+FAILED: t9 cores (exit=2)
+LED observation: t9 cores: 全部消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '97')
+
+===== [11/12] t10 tasks -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s (attempt 1) =====
+FAILED: t10 tasks -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s (exit=2)
+LED observation: t10 tasks -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s: 28点灯固定、他消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '100')
+
+===== [12/12] t10 cores -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s (attempt 1) =====
+FAILED: t10 cores -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s (exit=2)
+LED observation: t10 cores -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s: 28点灯固定、他消灯
+RESET後のCDC再列挙を確認: ('ttyACM0', '103')
+
+===== BATCH SUMMARY =====
+PASS             t5 tasks -frames 32 -producers 4 -mode raw
+PASS             t5 tasks -frames 32 -producers 4 -mode serialized
+PASS             t5 cores -frames 32 -producers 4 -mode raw
+PASS             t5 cores -frames 32 -producers 4 -mode serialized
+FAILED (exit=2)  t7 tasks
+FAILED (exit=2)  t7 cores
+FAILED (exit=2)  t8 tasks
+FAILED (exit=2)  t8 cores
+FAILED (exit=2)  t9 tasks
+FAILED (exit=2)  t9 cores
+FAILED (exit=2)  t10 tasks -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s
+FAILED (exit=2)  t10 cores -offsets 20ms,50ms,100ms -off 750ms -reconnect 15s
+Report: /home/user/cdctest/batch-20261113-001744.log

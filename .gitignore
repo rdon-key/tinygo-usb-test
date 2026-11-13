@@ -1,0 +1,30 @@
+# Build artifacts
+*.uf2
+*.elf
+*.bin
+*.hex
+
+# Test binaries
+t[0-9]*/pc/pc
+t[0-9]*/pc/main
+
+# Test logs
+t[0-9]*/logs/
+*.csv
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# Make launcher artifacts
+/build/
+/scripts/__pycache__/
+t[0-9]*/results/*/
+/build/
+/t*/results/
+/batch-*.log
+__pycache__/
+*.pyc
+*.uf2
+/t11/power-config.json

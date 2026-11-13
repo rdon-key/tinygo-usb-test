@@ -1,0 +1,8 @@
+
+===== [1/12] t5 tasks -frames 32 -producers 4 -mode raw =====
+ERROR: t5 tasks -frames 32 -producers 4 -mode raw exit=2
+
+*** TEST FAILED ***
+PicoをRESETする前にLEDを確認してください。
+
+BATCH INTERRUPTED
