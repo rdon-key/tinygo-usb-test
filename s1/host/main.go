@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"flag"
 	"fmt"
@@ -42,8 +41,15 @@ func main() {
 		os.Exit(1)
 	})
 	defer timer.Stop()
-	_, err = io.Copy(p, bytes.NewReader(data))
-	check(err)
+	sent := 0
+	for sent < len(data) {
+		n, err := p.Write(data[sent:])
+		check(err)
+		sent += n
+		if n == 0 {
+			time.Sleep(time.Millisecond)
+		}
+	}
 	fmt.Printf("Sent     : %d B\n", *size)
 	var reply [76]byte
 	_, err = io.ReadFull(p, reply[:])
